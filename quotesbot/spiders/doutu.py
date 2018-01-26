@@ -46,6 +46,8 @@ class DouTu(scrapy.Spider):
         deal_urls = list()
         deal_urls.append(response.url)
         print(deal_urls)
+        # image_item['file_urls'] = deal_urls
+        # image_item['files'] = deal_urls
         image_item['file_urls'] = deal_urls
         image_item['files'] = deal_urls
         yield image_item
