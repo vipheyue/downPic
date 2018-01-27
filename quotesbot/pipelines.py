@@ -5,34 +5,32 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import scrapy
+from scrapy.pipelines.files import FilesPipeline
 from scrapy.pipelines.media import MediaPipeline
+import os.path
 
 
-class QuotesbotPipeline(MediaPipeline):
+# class QuotesbotPipeline(MediaPipeline):
+class QuotesbotPipeline(FilesPipeline):
     def file_path(self,request,response=None,info=None):
-        print("------------- file_path")
-        filename = u'full/{0}/{1}'.format("ddd", "iii")
-        return filename
+        fileName = request.meta['fileName']
+        filePath = u'full/{0}/{1}'.format("热门", fileName)
+        return filePath
 
     def get_media_requests(self, item, info):
-        print("-------------- get_media_requests  ")
         for file_url in item['file_urls']:
-            yield scrapy.Request(file_url)
-            # referer = item['files']
-            # yield scrapy.Request(img_url, meta={'item': item, 'referer': referer})
+            fileName=os.path.basename(file_url)
+            yield scrapy.Request(file_url, meta={'fileName': fileName})
 
     def item_completed(self, results, item, info):
-        print('--------------item_completed  ')
-        # if isinstance(item, dict) or self.files_result_field in item.fields:
-        #     item[self.files_result_field] = [x for ok, x in results if ok]
-        # return item
-        # 创建图片存储路径
         print(item)
         print(info)
         for x in results:
             print(x[0])
-            print(x[1])
-            print(x)
+            if(x[0]):
+                
+            # print(x[1])
+            # print(x)
         print('--------------  '*10)
 
         # path = [x['path'] for ok, x in results if ok]
