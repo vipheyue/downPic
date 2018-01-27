@@ -5,10 +5,12 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import scrapy
+from scrapy.pipelines.files import FilesPipeline
 from scrapy.pipelines.media import MediaPipeline
 
 
-class QuotesbotPipeline(MediaPipeline):
+# class QuotesbotPipeline(MediaPipeline):
+class QuotesbotPipeline(FilesPipeline):
     def file_path(self,request,response=None,info=None):
         print("------------- file_path")
         filename = u'full/{0}/{1}'.format("ddd", "iii")
