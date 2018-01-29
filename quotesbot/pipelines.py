@@ -13,24 +13,27 @@ import os.path
 # class QuotesbotPipeline(MediaPipeline):
 class QuotesbotPipeline(FilesPipeline):
     def file_path(self,request,response=None,info=None):
-        fileName = request.meta['fileName']
-        filePath = u'full/{0}/{1}'.format("热门", fileName)
+        # fileName = request.meta['fileName']
+        # filePath = u'full/{0}/{1}'.format("热门", fileName)
+        print("+++++  "*10)
+        print(request.url)
+        fileName=os.path.basename(request.url)
+        filePath = u'full/{0}/{1}'.format("shengqi", fileName)
         return filePath
 
     def get_media_requests(self, item, info):
+        print("****  get_media_requests  "*20)
+        # yield scrapy.Request(item['file_urls'])
         for file_url in item['file_urls']:
-            fileName=os.path.basename(file_url)
-            yield scrapy.Request(file_url, meta={'fileName': fileName})
+            yield scrapy.Request(file_url)
 
     def item_completed(self, results, item, info):
-        print(item)
-        print(info)
-        for x in results:
-            print(x[0])
-            if(x[0]):
-                
-            # print(x[1])
-            # print(x)
+        # print(item)
+        # print(info)
+        # for x in results:
+        #     print(x[0])
+        #     print(x[1])
+        #     print(x)
         print('--------------  '*10)
 
         # path = [x['path'] for ok, x in results if ok]

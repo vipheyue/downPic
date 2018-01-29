@@ -68,12 +68,12 @@ ROBOTSTXT_OBEY = True
 # }
 # ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1}
 # IMAGES_STORE = '/Users/heyue/Documents/Work/pythonSpace/downPic/tempStorg'
-IMAGES_STORE = '/Users/heyue/Desktop/xxx/'
+# IMAGES_STORE = '/Volumes/Untitled/doutupic/'
 # ITEM_PIPELINES = {'scrapy.pipelines.files.FilesPipeline': 5}
 ITEM_PIPELINES = {'quotesbot.pipelines.QuotesbotPipeline': 5}
 
-# FILES_STORE = '/Volumes/Untitled/doutupic/'
-FILES_STORE = '/Users/heyue/Desktop/xxx/'
+FILES_STORE = '/Volumes/Untitled/doutuCategory/zhuangbi/pic/'
+# FILES_STORE = '/Users/heyue/Desktop/xxx/'
 # FILES_STORE = '/Volumes/Untitled/pic/'
 # FILES_STORE = '/Users/heyue/Documents/Work/pythonSpace/downPic/tempStorg'
 # Enable and configure the AutoThrottle extension (disabled by default)

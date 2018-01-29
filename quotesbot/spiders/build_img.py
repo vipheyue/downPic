@@ -10,21 +10,28 @@ from quotesbot.spiders.file_item import FileItem
 # scrapy crawl
 class buildimg(scrapy.Spider):
     name = "buildimg"
-    start_urls = [
-        'http://www.vipheyue.com',
-    ]
 
-    #
-    # def start_requests(self):
-    #     dirs = os.listdir('/Volumes/Untitled/doutu/')
-    #     for file in dirs:
-    #         with open('/Volumes/Untitled/doutu/%s' % file, 'r') as f:
-    #             data = json.load(f)
-    #             item = data['data']['item']
-    #             url=item['picPath']
-    #             word=item['name']
-    #             yield scrapy.Request(url=url, callback=self.parse)
-    #             pass
+    # start_urls = [
+    #     'http://www.vipheyue.com',
+    # ]
+
+    def start_requests(self):
+        yield scrapy.Request('http://img.jiefu.tv/img/attached/1/image/20160224/20160224154310_823.jpg',
+                             callback=self.parse)
+
+        # dirs = os.listdir('/Volumes/Untitled/doutu/')
+        # for file in dirs:
+        #     try:
+        #         with open('/Volumes/Untitled/doutu/%s' % file, 'r') as f:
+        #             data = json.load(f)
+        #             item = data['data']['item']
+        #             url=item['picPath']
+        #             word=item['name']
+        #             yield scrapy.Request(url=url, callback=self.parse)
+        #     except TypeError:
+        #         print("小问题......")
+        # pass
+
     # def mytest(self):
     #     print("666666666" * 40)
     #     image_item = FileItem()
@@ -45,16 +52,36 @@ class buildimg(scrapy.Spider):
     #     pass
 
     def parse(self, response):
-        print("----" * 40)
+        print("----  parse  " * 40)
+        # image_item = FileItem()
+        # image_item['name'] = "i am  name"
+        # image_item['file_urls'] = response.url
+        # image_item['files'] = response.url
+        # yield image_item
+
         # self.mytest()
         # print(str(response.url))
-
-        # yield scrapy.Request(url='http://img.jiefu.tv/img/attached/1/image/20160224/20160224154310_823.jpg',callback=self.parse22)
+        # yield scrapy.Request('http://img.jiefu.tv/img/attached/1/image/20160224/20160224154310_823.jpg')
 
         image_item = FileItem()
         deal_urls = list()
-        deal_urls.append('http://img.jiefu.tv/img/attached/1/image/20160224/20160224154310_823.jpg')
-        deal_urls.append('https://img-bss.csdn.net/201801261146136308.jpg')
+        index = 1
+        dirs = os.listdir('/Volumes/Untitled/doutu/')
+        for file in dirs:
+            try:
+                with open('/Volumes/Untitled/doutu/%s' % file, 'r') as f:
+                    data = json.load(f)
+                    item = data['data']['item']
+                    url = item['picPath']
+                    word = item['name']
+                    deal_urls.append(url)
+                    index = index + 1
+                    print(str(index))
+            except:
+                print("小问题......")
+
+        # deal_urls.append('http://img.jiefu.tv/img/attached/1/image/20160224/20160224154310_823.jpg')
+        # deal_urls.append('https://img-bss.csdn.net/201801261146136308.jpg')
         # deal_urls = 'http://img.jiefu.tv/img/attached/1/image/20160224/20160224154310_823.jpg'
         image_item['name'] = "i am  name"
         image_item['file_urls'] = deal_urls

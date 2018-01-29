@@ -21,29 +21,6 @@ class Expression(scrapy.Spider):
                 yield scrapy.Request(dealline)
                 pass  # do something here
             f.close()
-    # def parse(self, response):
-    #     for quote in response.css('div.quote'):
-    #         yield {
-    #             'text': quote.css('span.text::text').extract_first(),
-    #             'author': quote.xpath('span/small/text()').extract_first(),
-    #         }
-    #
-    #     next_page = response.css('li.next a::attr("href")').extract_first()
-    #     if next_page is not None:
-    #         yield response.follow(next_page, self.parse)
-
-    def __parse_pic(self, response):
-        image_item = ImageItem()
-        # img_urls = response.xpath("//img/@src").extract()
-        img_urls = ['http://qq.yh31.com/tp/zjbq/201712252159396323.gif']
-        print(img_urls)
-        # for item in img_urls:
-        #     yield scrapy.Request(item, self.parse_item)
-
-        image_item['image_urls'] = img_urls
-        image_item['images'] = img_urls
-
-        yield image_item
 
     def parse(self, response):
         print('*****' * 40)
@@ -56,8 +33,6 @@ class Expression(scrapy.Spider):
         yield image_item
         pass
         # yield scrapy.Request('http://qq.yh31.com/tp/zjbq/201712252159396323.gif', self.parse_item)
-
-
 
     def parse11111(self, response):
         # for item in response.xpath('//div[@id="men"]'):
@@ -94,16 +69,8 @@ class Expression(scrapy.Spider):
                 f.write(str('http://qq.yh31.com' + sub_href))
             # 开始访问第一个网页
             yield response.follow(sub_href, self.parseAllNext)
-
         print("------" * 20)
 
-        # for item in response.xpath('//div[@id="menu_con"]'):
-        #         sub_href = subItem.css('a::attr(href)').extract_first()
-        #         yield {
-        #             'name222222':item
-        #         }
-
-    # def getCurrentAllSite(self,response):
     def parseAllNext(self, response):
         oldlist = response.xpath('//select[@id="Jumppage"]/option/@value').extract()
         print("------" * 20)
@@ -115,58 +82,3 @@ class Expression(scrapy.Spider):
             for item in deal_urls:
                 f.write('\n')
                 f.write(str(item))
-
-    def browseSite(self, response):
-        # 下载图片
-        # self.downPic(response)
-        # print('******' * 40)
-        # image_item = FileItem()
-        # # img_urls = ['http://qq.yh31.com/tp/zjbq/201712252159396323.gif']
-        # # image_item['file_urls'] = img_urls
-        # img_urls = response.xpath("//img/@src").extract()
-        # deal_urls = list(map(lambda x: 'http://qq.yh31.com' + x, img_urls))
-        # print(deal_urls)
-        # image_item['file_urls'] = deal_urls
-        # image_item['files'] = deal_urls
-        # yield image_item
-
-        # 解析第二页
-        list = response.xpath('//div[@class="c_bot_fy"]').css("a")
-        # 取最后一个 遍历下一页
-        print("00" * 30)
-        print(len(list))
-        if len(list) > 1:
-            lastItem = list[len(list) - 1]
-            desc = lastItem.css('a::text').extract_first()
-            next_href = lastItem.css('a::attr(href)').extract_first()
-            print(desc + "  " + next_href)
-
-            with open("dealSite.txt", 'a+') as f:
-                # f.write(str(desc))
-                f.write('\n')
-                f.write(str('http://qq.yh31.com' + next_href))
-            # 开始访问第一个网页
-
-            yield response.follow(next_href, self.browseSite)
-
-    def downPic(self, response):
-        print('*****' * 40)
-        image_item = FileItem()
-        # img_urls = ['http://qq.yh31.com/tp/zjbq/201712252159396323.gif']
-        # image_item['file_urls'] = img_urls
-        img_urls = response.xpath("//img/@src").extract()
-        deal_urls = list(map(lambda x: 'http://qq.yh31.com' + x, img_urls))
-        print(deal_urls)
-        image_item['file_urls'] = deal_urls
-        image_item['files'] = deal_urls
-        yield image_item
-
-    def parse_item(self, response):
-        with open("site.txt", 'r+') as f:
-            for line in f:
-                print(str(line))
-                yield response.follow(line, self.downPic)
-                pass  # do something here
-            f.close()
-
-            pass
