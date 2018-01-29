@@ -4,6 +4,7 @@ import os
 
 
 def readDir(root_path):
+    '''根据文件 生成 json'''
     file_list = list()
     root_dir = os.listdir(root_path)
     for file_or_dir in root_dir:
@@ -28,7 +29,7 @@ def write_data(dir_name, file_list):
         #     b.close()
 
         with open('/Volumes/Untitled/doutuCategory/trim/pic1/%s.json' % dir_name, 'w') as f:
-        # with open('/Volumes/Untitled/doutuCategory/trim/pic2/%s.json' % dir_name, 'w') as f:
+            # with open('/Volumes/Untitled/doutuCategory/trim/pic2/%s.json' % dir_name, 'w') as f:
             # 构造字典
             python2json = {}
             # 构造list
