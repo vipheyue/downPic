@@ -29,7 +29,7 @@ def write_data(dir_name, file_list):
         #     b.close()
 
         with open('/Volumes/Untitled/doutuCategory/trim/pic1/%s.json' % dir_name, 'w') as f:
-            # with open('/Volumes/Untitled/doutuCategory/trim/pic2/%s.json' % dir_name, 'w') as f:
+        # with open('/Volumes/Untitled/doutuCategory/trim/pic2/%s.json' % dir_name, 'w') as f:
             # 构造字典
             python2json = {}
             # 构造list
@@ -42,7 +42,6 @@ def write_data(dir_name, file_list):
             f.write(json_str)
     except TypeError:
         print("小问题......")
-
 
 root_path = '/Volumes/Untitled/doutuCategory/pic1/'
 # root_path = '/Volumes/Untitled/doutuCategory/pic2/'
